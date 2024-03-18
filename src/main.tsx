@@ -1,25 +1,15 @@
-import { Repo } from "@automerge/automerge-repo"
-import { BroadcastChannelNetworkAdapter } from "@automerge/automerge-repo-network-broadcastchannel"
-import { BrowserWebSocketClientAdapter } from "@automerge/automerge-repo-network-websocket"
-import { RepoContext } from "@automerge/automerge-repo-react-hooks"
-import { IndexedDBStorageAdapter } from "@automerge/automerge-repo-storage-indexeddb"
-import React from "react"
-import ReactDOM from "react-dom/client"
-import { App } from "./App.js"
-import "./index.css"
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { App } from './App'
+import { TodosProvider } from './TodosContext'
 
-const repo = new Repo({
-  network: [
-    new BroadcastChannelNetworkAdapter(),
-    new BrowserWebSocketClientAdapter("ws://localhost:3030"),
-  ],
-  storage: new IndexedDBStorageAdapter("automerge-repo-demo-todo"),
-})
+import '@ibm/plex/css/ibm-plex.css'
+import './index.css'
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <RepoContext.Provider value={repo}>
-    <React.StrictMode>
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <TodosProvider>
       <App />
-    </React.StrictMode>
-  </RepoContext.Provider>
+    </TodosProvider>
+  </React.StrictMode>
 )
